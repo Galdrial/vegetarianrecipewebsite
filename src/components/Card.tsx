@@ -1,4 +1,6 @@
 
+
+
 function Card({src, alt, title, description, span }: {src?: string, alt?: string, title?: string, description?: string, span?: string}) { 
   return (
     <div className={`${span} bg-green-500 p-6 rounded-lg flex flex-col items-center text-center`}>
