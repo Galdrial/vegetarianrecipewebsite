@@ -8,8 +8,6 @@ function Grid () {
       <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  />
       <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  />
       <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  />
-      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  />
-      <Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  /><Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  /><Card src={img} alt="React Logo" title="React" description='Lorem Ipsum is simply dummy text of the printing and typesetting industry.'  />
     </div>
   );
 }

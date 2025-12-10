@@ -1,6 +1,6 @@
 function OurMission() {
   return (
-    <section className="our-mission border text-black max-w-4xl mx-auto my-12 p-12 bg-white rounded-lg shadow-black/50 shadow-xl mb-24">
+    <section className="our-mission border text-black max-w-4xl mx-auto my-12 p-12 bg-white rounded-lg shadow-black/25 shadow-xl mb-24">
       <h1>🌱 Our Mission</h1>
       <br />
       <p>
