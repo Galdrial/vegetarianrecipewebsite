@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+// ...existing code...
 import Footer from './components/Footer'
 import GridRandomCards from './components/GridRandomCards'
 import GridResultsCards from './components/GridResultsCards'
@@ -9,7 +10,7 @@ import RecepiDetail from './components/RecepiDetail'
 import ScrollToTop from './components/ScrollToTop'
 
 function App() {
-
+  // Funzione base senza Redux e hooks non usati
 
   return (
     <Router>
