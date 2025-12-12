@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import randomCardsReducer from './RandomCardsSlice.tsx';
-import recepiDetailReducer from './RecepiDetailSlice.tsx';
+import recipeDetailReducer from './RecipeDetailSlice.tsx';
 import resultsCardsReducer from './ResultsCardsSlice.tsx';
 
 export const store = configureStore({
   reducer: {
     randomCards: randomCardsReducer,
-    recepiDetail: recepiDetailReducer,
+    recipeDetail: recipeDetailReducer,
     resultsCards: resultsCardsReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',

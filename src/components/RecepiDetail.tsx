@@ -11,7 +11,7 @@ interface RecipeDetail {
   instructions?: string;
 }
 
-const RecepiDetail: React.FC = () => {
+const RecipeDetail: React.FC = () => {
   const { id } = useParams();
   const location = useLocation();
   const [recipe, setRecipe] = React.useState<RecipeDetail | null>(null);
@@ -24,7 +24,6 @@ const RecepiDetail: React.FC = () => {
     const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
     axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`)
       .then(response => {
-        console.log('Spoonacular detail response:', response.data);
         const recipe = response.data;
         if (recipe) {
           setRecipe({
@@ -65,4 +64,4 @@ const RecepiDetail: React.FC = () => {
   );
 };
 
-export default RecepiDetail;
+export default RecipeDetail;

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 function Card( { src, alt, title, instructions, id }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string } ) {
-  console.log('Card id prop:', id);
   // Determine the origin from the pathname
   const from = window.location.pathname === '/search' ? 'search' : 'random';
   return (

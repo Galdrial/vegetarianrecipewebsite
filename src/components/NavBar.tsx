@@ -1,4 +1,4 @@
-import carrot from '../assets/carrot.png';
+import carrot from '../../public/carrot.png';
 import Logo from './Logo';
 import Navlink from './NavLink';
 import Search from './Search';

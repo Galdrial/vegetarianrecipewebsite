@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from './store';
 
 
-interface RecepiDetail {
+interface RecipeDetail {
   id: string;
   title: string;
   src: string;
@@ -11,23 +11,23 @@ interface RecepiDetail {
 }
 
 const initialState = {
-  cards: [] as RecepiDetail[],
+  cards: [] as RecipeDetail[],
 };
 
-const recepiDetailSlice= createSlice({
-  name: 'recepiDetail',
+const recipeDetailSlice= createSlice({
+  name: 'recipeDetail',
   initialState,
   reducers: {
-    setRecepiDetails(state, action) {
+    setRecipeDetails(state, action) {
       state.cards = action.payload;
     },
   },
 });
 
 function cardSelector(state: RootState) {
-      return state.recepiDetail.cards;
+      return state.recipeDetail.cards;
     };
 
-export const { setRecepiDetails } = recepiDetailSlice.actions;
+export const { setRecipeDetails } = recipeDetailSlice.actions;
 export { cardSelector };
-export default recepiDetailSlice.reducer;
+export default recipeDetailSlice.reducer;
