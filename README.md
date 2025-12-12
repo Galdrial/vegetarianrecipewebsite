@@ -1,6 +1,9 @@
 
 
+
 # Green Eats 🍃
+
+[🌱 Visit the live website](https://vegetarianrecipewebsite.vercel.app/)
 
 ![Green Eats Preview](public/og-image.png)
 
