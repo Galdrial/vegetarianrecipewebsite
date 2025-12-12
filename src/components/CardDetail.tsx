@@ -2,19 +2,24 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearResultsCards } from '../redux/ResultsCardsSlice';
 
+// Utility function to remove HTML tags from a string
 function stripHtml(html?: string) {
   if (!html) return '';
   return html.replace(/<[^>]+>/g, '');
 }
 
-function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string, backTo?: string } ) {
+// CardDetail component displays detailed information for a single recipe
+// Includes image, title, formatted instructions, and a back button
+function CardDetail({ src, alt, title, instructions, id, backTo }: { src?: string, alt?: string, title?: string, instructions?: string, id?: string, backTo?: string }) {
   const dispatch = useDispatch();
-  // Improve instructions formatting: use a bullet list if there are multiple steps, otherwise a single paragraph
+  // Format instructions: use a bullet list if there are multiple steps, otherwise a single paragraph
   let formattedInstructions: React.ReactNode = null;
   if (instructions) {
     const cleanInstructions = stripHtml(instructions);
+    // Split instructions into steps by newlines or periods
     const steps = cleanInstructions.split(/\r?\n|\.(?=\s|$)/).map(s => s.trim()).filter(Boolean);
     if (steps.length > 1) {
+      // Render as a bullet list
       formattedInstructions = (
         <ul className="list-disc pl-6">
           {steps.map((step, idx) => (
@@ -25,6 +30,7 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
         </ul>
       );
     } else {
+      // Render as a single paragraph
       formattedInstructions = (
         <p className='text-green-900 mb-4 text-start text-lg'>
           {steps[0].charAt(0).toUpperCase() + steps[0].slice(1)}
@@ -39,11 +45,15 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
       id={id}
       aria-label={`Recipe detail for ${title}`}
     >
+      {/* Recipe title */}
       <h2 className='text-lime-700 text-3xl text-center  mx-6 font-bold mb-10'>{title}</h2>
+      {/* Recipe image */}
       <div className="w-full h-80 flex items-center justify-center bg-gray-100 rounded-t-xl overflow-hidden mb-12">
         <img src={src} alt={alt} className="w-full object-cover rounded-t-xl" aria-label={alt ? `Image of ${alt}` : undefined} />
       </div>
+      {/* Formatted instructions (list or paragraph) */}
       {formattedInstructions}
+      {/* Back button to return to results or home */}
       <div className="flex justify-end">
         <button
           className="mt-6 px-4 py-2 bg-lime-700 text-white rounded-3xl hover:bg-lime-800 transition"
@@ -62,5 +72,6 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
     </div>
   );
 }
+
 
 export default CardDetail;

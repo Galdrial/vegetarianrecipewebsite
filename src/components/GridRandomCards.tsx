@@ -1,16 +1,21 @@
-
+// GridRandomCards component fetches and displays a grid of random vegetarian recipes
+// Uses Redux for state management and a custom hook for API calls
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cardSelector, setRandomCards } from '../redux/RandomCardsSlice';
 import Card from './Card';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
+
 function GridRandomCards() {
+  // Get cards from Redux store
   const cards = useSelector(cardSelector);
   const dispatch = useDispatch();
+  // Build API URL for random vegetarian recipes
   const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
   const url = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=8&include-tags=vegetarian`;
 
+  // Types for API response and card data
   type SpoonacularRandomResult = {
     recipes: Array<{
       id: number;
@@ -20,6 +25,7 @@ function GridRandomCards() {
     }>;
   };
   type Card = { id: string; title: string; src: string; alt: string; instructions?: string };
+  // Map API data to card format
   const mapFn = (data: SpoonacularRandomResult): Card[] =>
     Array.isArray(data.recipes)
       ? data.recipes.map((item) => ({
@@ -30,21 +36,24 @@ function GridRandomCards() {
           instructions: item.instructions,
         }))
       : [];
+  // Custom hook for fetching recipes
   const { loading, error, data, fetchData, setError } = useFetchRecipes<SpoonacularRandomResult, Card[]>(url, mapFn);
 
+  // Fetch random recipes on mount if not already loaded
   React.useEffect(() => {
     if (cards.length === 0) {
       fetchData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, cards.length]);
+  }, [dispatch, cards.length, fetchData]);
 
+  // Update Redux store when new data is fetched
   React.useEffect(() => {
     if (data && data.length > 0) {
       dispatch(setRandomCards(data));
     }
   }, [data, dispatch]);
 
+  // Show loading spinner while fetching data
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh]">
@@ -53,6 +62,7 @@ function GridRandomCards() {
       </div>
     );
   }
+  // Show error message and retry button if fetch fails
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh] text-center">
@@ -71,6 +81,7 @@ function GridRandomCards() {
     );
   }
 
+  // Render the grid of recipe cards
   return (
     <>
       <h2 className='font-playwrite text-lime-700 text-4xl font-bold text-center mt-12'>Get Inspired</h2>

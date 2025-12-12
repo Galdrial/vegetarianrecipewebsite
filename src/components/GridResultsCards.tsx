@@ -1,34 +1,49 @@
-
+// GridResultsCards component fetches and displays a grid of vegetarian recipes based on search results
+// Uses Redux for state management and a custom hook for API calls
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resultsSelector, setResultsCards } from '../redux/ResultsCardsSlice';
 import Card from './Card';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
-
 function GridResultsCards() {
+  // Get cards from Redux store
   const cards = useSelector(resultsSelector);
   const dispatch = useDispatch();
+  // Build API URL for vegetarian recipe search
   const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
   const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian`;
-  const mapFn = (data: any) =>
-    data.results.map((item: any) => ({
+
+  // Types for API response and card data
+  type SpoonacularSearchResult = {
+    results: Array<{
+      id: number;
+      title: string;
+      image: string;
+    }>;
+  };
+  type CardType = { id: string; title: string; src: string; alt: string };
+  // Map API data to card format
+  const mapFn = (data: SpoonacularSearchResult): CardType[] =>
+    data.results.map((item) => ({
       id: String(item.id),
       title: item.title,
       src: item.image,
       alt: item.title,
     }));
-  const { loading, error, data, fetchData, setError } = useFetchRecipes(url, mapFn);
+  // Custom hook for fetching recipes
+  const { loading, error, data, fetchData, setError } = useFetchRecipes<SpoonacularSearchResult, CardType[]>(url, mapFn);
 
+  // Fetch search results on mount if not already loaded
   React.useEffect(() => {
     if (cards.length === 0) {
       fetchData().then(() => {
-        if (data.length > 0) dispatch(setResultsCards(data));
+        if (data && data.length > 0) dispatch(setResultsCards(data));
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, cards.length]);
+  }, [dispatch, cards.length, fetchData, data]);
 
+  // Show loading spinner while fetching data
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh]">
@@ -37,6 +52,7 @@ function GridResultsCards() {
       </div>
     );
   }
+  // Show error message and retry button if fetch fails
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh] text-center">
@@ -47,7 +63,7 @@ function GridResultsCards() {
             dispatch(setResultsCards([]));
             setError(null);
             fetchData().then(() => {
-              if (data.length > 0) dispatch(setResultsCards(data));
+              if (data && data.length > 0) dispatch(setResultsCards(data));
             });
           }}
         >
@@ -57,6 +73,7 @@ function GridResultsCards() {
     );
   }
 
+  // Render the grid of search result cards
   return (
     <>
       <h2 className='font-playwrite text-lime-700 text-4xl font-bold text-center mt-12'>Results Recipes</h2>

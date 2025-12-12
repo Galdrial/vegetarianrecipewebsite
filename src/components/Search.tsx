@@ -1,22 +1,25 @@
-
+// Search component for finding vegetarian recipes using Spoonacular API
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setResultsCards } from '../redux/ResultsCardsSlice';
 import { useFetchRecipes } from './hooks/useFetchRecipes';
 
-
 function Search() {
+  // State for the search query
   const [query, setQuery] = React.useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // Build the API URL for searching recipes
   const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
   const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=8&diet=vegetarian&query=${encodeURIComponent(query)}`;
 
+  // Types for API response and card data
   type SpoonacularSearchResult = {
     results: Array<{ id: number; title: string; image: string; }>;
   };
   type Card = { id: string; title: string; src: string; alt: string };
+  // Map API data to card format
   const mapFn = (data: SpoonacularSearchResult): Card[] => Array.isArray(data.results)
     ? data.results.map((item) => ({
         id: String(item.id),
@@ -25,32 +28,37 @@ function Search() {
         alt: item.title,
       }))
     : [];
+  // Custom hook for fetching search results
   const { data, loading, error, fetchData, setError } = useFetchRecipes<SpoonacularSearchResult, Card[]>(url, mapFn);
 
+  // Handle search button click or Enter key
   const handleSearch = async () => {
     if (!query.trim()) return;
     await fetchData();
   };
 
+  // When new data arrives, update Redux and navigate
   React.useEffect(() => {
     if (data && data.length > 0) {
       dispatch(setResultsCards(data));
       navigate('/search');
       setQuery('');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, dispatch, navigate, setQuery]);
 
+  // Handle input change
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
+  // Handle Enter key in input
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearch();
     }
   };
 
+  // Render the search input and button
   return (
     <div className="flex-1 min-w-[200px] mx-4 order-3 sm:order-none w-full">
       <div className="relative w-full">
@@ -78,6 +86,7 @@ function Search() {
             </svg>
           )}
         </button>
+        {/* Error modal for failed search */}
         {error && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
             <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center max-w-xs w-full relative">

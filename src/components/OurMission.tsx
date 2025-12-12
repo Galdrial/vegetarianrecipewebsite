@@ -1,5 +1,8 @@
+
+// OurMission component displays the mission statement and commitments of the website
 function OurMission() {
   return (
+    // Section with mission statement and commitments
     <section className="our-mission flex-1 text-black max-w-4xl mx-auto px-12 bg-white rounded-lg mt-10" aria-label="Our Mission section">
       <h1 className='font-playwrite text-3xl mb-4'>🌱 Our Mission</h1>
       <br />
