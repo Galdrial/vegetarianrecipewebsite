@@ -2,7 +2,7 @@
 
 # Green Eats 🍃
 
-![Green Eats Preview](public/carrot.png)
+![Green Eats Preview](public/og-image.png)
 
 Vegetarian recipe website built with React, TypeScript, Redux Toolkit, Vite, and Tailwind CSS.
 
