@@ -1,8 +1,11 @@
 function OurMission() {
   return (
+    // OurMission component displays the mission statement and commitments
     <section className="our-mission flex-1 text-black max-w-4xl mx-auto px-12 bg-white rounded-lg mt-10" aria-label="Our Mission section">
+      // Render a section with the mission statement and commitments
       <h1 className='font-playwrite text-3xl mb-4'>🌱 Our Mission</h1>
       <br />
+      {/* Mission title */}
       <p>
         Nourishing Bodies, Nurturing the Planet
         At Green Eats, our mission is simple yet powerful: to inspire and empower everyone, from seasoned chefs to kitchen novices, to embrace the incredible richness of plant-based cooking.
@@ -11,13 +14,20 @@ function OurMission() {
         We believe che eating vegetarian should be anything but boring. It should be an adventure in flavor, a celebration of vibrant ingredients, and a daily act of kindness both to our bodies and to the world around us.
       </p>
       <br />
+      {/* Mission statement paragraph */}
       <h2>Our Commitments:</h2>
       <br />
       <ul className="list-disc list-inside mb-4">
-        <li>To Inspire: We are dedicated to providing a diverse collection of easy-to-follow, wholesome, and delicious vegetarian recipes that prove plant-based meals can be the most exciting part of your day.</li><br />
-        <li>To Educate: We want to demystify vegetarian cooking by sharing helpful tips, ingredient spotlights, and practical advice for a nourishing and sustainable lifestyle.</li><br />
+        {/* Inspire commitment */}
+        <li>To Inspire: We are dedicated to providing a diverse collection of easy-to-follow, wholesome, and delicious vegetarian recipes that prove plant-based meals can be the most exciting part of your day.</li>
+        <br />
+        {/* Educate commitment */}
+        <li>To Educate: We want to demystify vegetarian cooking by sharing helpful tips, ingredient spotlights, and practical advice for a nourishing and sustainable lifestyle.</li>
+        <br />
+        {/* Connect commitment */}
         <li>To Connect: We aim to build a welcoming community where food lovers can share their passion for green eats, exchange ideas, and encourage one another on their culinary journeys.</li>
       </ul>
+      {/* Closing statement */}
       <p>
         Join us in making every meal a truly Green Eat a delicious step towards a healthier self and a happier planet.
       </p>
