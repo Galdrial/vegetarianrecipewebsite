@@ -47,11 +47,16 @@ function Search() {
   };
 
   // Update Redux store and navigate to results when new data is fetched
+  // Show a message if no results are found
   React.useEffect(() => {
-    if (data && data.length > 0) {
-      dispatch(setResultsCards(data));
-      navigate('/search');
-      setQuery('');
+    if (data) {
+      if (data.length > 0) {
+        dispatch(setResultsCards(data));
+        navigate('/search');
+        setQuery('');
+      } else if (!loading) {
+        setError('No results found for your search.');
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
