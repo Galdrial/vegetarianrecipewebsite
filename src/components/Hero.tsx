@@ -1,6 +1,6 @@
 
 // Hero component displays the main hero section with a background image and headline
-import heroimage from '../assets/img/hero.png';
+import heroimage from '../assets/img/hero.webp';
 
 function Hero() {
   // Render the hero section with a background image and a headline
