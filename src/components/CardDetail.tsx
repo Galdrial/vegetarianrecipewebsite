@@ -39,6 +39,12 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
     }
   }
   const navigate = useNavigate();
+  // Try to get a higher resolution image from Spoonacular if possible
+  let highResSrc = src;
+  if (src && src.match(/-\d+x\d+\.(jpg|jpeg|png)$/)) {
+    // Replace the size in the filename with a larger one (636x393 is common for Spoonacular)
+    highResSrc = src.replace(/-\d+x\d+(\.(jpg|jpeg|png))$/, '-636x393$1');
+  }
   return (
     <div
       className="max-w-4xl text-black mx-auto mb-12 mt-6 px-12 bg-white"
@@ -49,7 +55,7 @@ function CardDetail( { src, alt, title, instructions, id, backTo }: { src?: stri
       <h2 className='text-lime-700 text-3xl text-center  mx-6 font-bold mb-10'>{title}</h2>
       {/* Recipe image */}
       <div className="w-full h-80 flex items-center justify-center bg-gray-100 rounded-t-xl overflow-hidden mb-12">
-        <img src={src} alt={alt} className="w-full object-cover rounded-t-xl" aria-label={alt ? `Image of ${ alt }` : undefined} />
+        <img src={highResSrc} alt={alt} className="w-full object-cover rounded-t-xl" aria-label={alt ? `Image of ${ alt }` : undefined} />
       </div>
       {/* Formatted instructions (list or paragraph) */}
       {formattedInstructions}
